@@ -129,3 +129,52 @@ var findPalindrom = function() {
   //loop through the array with the first number multiplying the rest
   return max;
 }; 
+
+/* Problem 5
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?*/
+
+var generateArray = function(n) {
+  var nums = [];
+  for(var i = 2; i <= n; i++){
+    nums.push(i);
+  }
+  return nums;
+};
+
+var primeSieve = function(array) {
+  //start with the first number
+  array = array.slice();
+  for(var i = 0; i < array.length; i++){
+    var prime = array[i];
+    for(var j = i+1; j < array.length; j++){
+      if(array[j]%prime === 0){
+        array.splice(j,1);
+        i--;
+      }
+    }
+  }
+  return array;
+};
+
+var productOfArray = function(array) {
+  return array.reduce(function(a,b){return a*b});
+};
+
+var leastMultiple = function(n) {
+  //have an object that keeps track of how many times each prime included in our object
+  var nums = generateArray(n);
+  var primes = primeSieve(nums);
+  var primesStorage = {};
+  primes.forEach(function(prime){
+    primesStorage[prime] = 1;
+  });
+  //loop thru each prime, calculate the 1/p root
+  for(var prime in primesStorage){
+    primesStorage[prime] = Math.floor(Math.pow(n, 1/prime));
+  }
+
+  console.log(primesStorage);
+};
+
