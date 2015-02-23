@@ -164,8 +164,8 @@ var productOfArray = function(array) {
 
 var leastMultiple = function(n) {
   //have an object that keeps track of how many times each prime included in our object
-  var nums = generateArray(n);
-  var primes = primeSieve(nums);
+  var result = 1;
+  var primes = primeSieve(generateArray(n));
   var primesStorage = {};
   primes.forEach(function(prime){
     primesStorage[prime] = 1;
@@ -173,8 +173,8 @@ var leastMultiple = function(n) {
   //loop thru each prime, calculate the 1/p root
   for(var prime in primesStorage){
     primesStorage[prime] = Math.floor(Math.pow(n, 1/prime));
+    result *= Math.pow(prime, primesStorage[prime]);
   }
-
-  console.log(primesStorage);
+  return result;
 };
 
